@@ -1,194 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tracker Installation Guide</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 20px;
-            background-color: #f9f9f9;
-            color: #333;
-        }
-        h1, h2, h3 {
-            color: #0056b3;
-        }
-        code {
-            background-color: #f4f4f4;
-            padding: 2px 5px;
-            border-radius: 4px;
-        }
-        pre {
-            background-color: #f4f4f4;
-            padding: 10px;
-            border-left: 3px solid #ddd;
-            overflow-x: auto;
-        }
-        a {
-            color: #0056b3;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        .note {
-            background-color: #fff3cd;
-            border-left: 5px solid #ffeeba;
-            padding: 10px;
-            margin: 10px 0;
-        }
-        .troubleshooting {
-            background-color: #f8d7da;
-            border-left: 5px solid #f5c6cb;
-            padding: 10px;
-            margin: 10px 0;
-        }
-    </style>
-</head>
-<body>
-    <h1>Tracker Installation Guide</h1>
-    <p>This guide provides instructions on how to set up and use the <code>Tracker</code> class for object tracking and detection in video frames. The code is built using the <strong>YOLO</strong> model from Ultralytics and integrates with <strong>supervision</strong> for advanced tracking functionality.</p>
+# Tracker Installation Guide
 
-    <h2>Prerequisites</h2>
-    <ul>
-        <li>Python 3.8 or later</li>
-        <li><code>pip</code> for managing Python packages</li>
-        <li>A supported GPU (recommended for YOLO model inference)</li>
-        <li>OpenCV (for image processing)</li>
-    </ul>
+This guide provides instructions on how to set up and use the `Tracker` class for object tracking and detection in video frames. The code is built using the `YOLO` model from Ultralytics and integrates with `supervision` for advanced tracking functionality.
 
-    <h2>Installation</h2>
-    <ol>
-        <li><strong>Clone or Download the Repository</strong></li>
-        <li><strong>Install Required Dependencies:</strong></li>
-        <pre><code>pip install ultralytics supervision opencv-python-headless numpy pandas</code></pre>
-        <li><strong>Install Additional System Libraries:</strong></li>
-        <ul>
-            <li>Ubuntu/Debian:
-                <pre><code>sudo apt update
-sudo apt install libgl1-mesa-glx</code></pre>
-            </li>
-            <li>Windows:
-                <p>Ensure your Python environment is properly configured to handle OpenCV and YOLO.</p>
-            </li>
-        </ul>
-        <li><strong>Include Utility Functions:</strong>
-            <p>Ensure the <code>utils.py</code> file is present in the project directory. It should contain the following helper functions:</p>
-            <ul>
-                <li><code>get_bbox_width</code></li>
-                <li><code>get_center_of_bbox</code></li>
-            </ul>
-        </li>
-        <li><strong>Verify the Installation:</strong></li>
-        <pre><code>from ultralytics import YOLO
-import cv2
-print("Setup successful!")</code></pre>
-    </ol>
+---
 
-    <h2>Usage</h2>
-    <ol>
-        <li><strong>Initialize the Tracker:</strong></li>
-        <pre><code>tracker = Tracker(model_path='path/to/your/yolo/model.pt')</code></pre>
-        <li><strong>Process Video Frames:</strong></li>
-        <ul>
-            <li><strong>Load Video Frames:</strong></li>
-            <pre><code>import cv2
+## Prerequisites
 
-video_frames = []
-cap = cv2.VideoCapture('input_video.mp4')
-while cap.isOpened():
-    ret, frame = cap.read()
-    if not ret:
-        break
-    video_frames.append(frame)
-cap.release()</code></pre>
-            <li><strong>Detect and Track Objects:</strong></li>
-            <pre><code>tracks = tracker.get_object_tracks(video_frames)</code></pre>
-        </ul>
-        <li><strong>Annotate and Export Frames:</strong></li>
-        <ul>
-            <li><strong>Draw Annotations:</strong></li>
-            <pre><code>annotated_frames = tracker.draw_annotations(video_frames, tracks)</code></pre>
-            <li><strong>Save the Output Video:</strong></li>
-            <pre><code>out = cv2.VideoWriter(
-    'output_video.mp4',
-    cv2.VideoWriter_fourcc(*'mp4v'),
-    30,
-    (video_frames[0].shape[1], video_frames[0].shape[0])
-)
-for frame in annotated_frames:
-    out.write(frame)
-out.release()</code></pre>
-        </ul>
-    </ol>
+Ensure the following software and tools are installed:
 
-    <h2>Sample Workflow</h2>
-    <pre><code>from Tracker import Tracker
-import cv2
+- Python 3.8 or later
+- `pip` for managing Python packages
+- A supported GPU (recommended for YOLO model inference)
+- OpenCV (for image processing)
 
-# Initialize the Tracker
-tracker = Tracker(model_path='yolov8n.pt')
+---
 
-# Load video frames
-video_frames = []
-cap = cv2.VideoCapture('input_video.mp4')
-while cap.isOpened():
-    ret, frame = cap.read()
-    if not ret:
-        break
-    video_frames.append(frame)
-cap.release()
+## Installation
 
-# Detect and track objects
-tracks = tracker.get_object_tracks(video_frames)
+1. **Clone or Download the Repository**
 
-# Annotate video
-annotated_frames = tracker.draw_annotations(video_frames, tracks)
+   Clone or download the repository containing the `Tracker` class code to your local machine.
 
-# Save the output
-out = cv2.VideoWriter(
-    'output_video.mp4',
-    cv2.VideoWriter_fourcc(*'mp4v'),
-    30,
-    (video_frames[0].shape[1], video_frames[0].shape[0])
-)
-for frame in annotated_frames:
-    out.write(frame)
-out.release()</code></pre>
+2. **Install Required Dependencies**
 
-    <h2>Notes</h2>
-    <ul>
-        <li><strong>Batch Size Adjustment:</strong> Adjust the batch size in <code>detect_frames</code> for optimal performance based on your system’s memory and GPU capacity.</li>
-        <li><strong>Model Selection:</strong> Ensure the YOLO model file (<code>.pt</code>) matches your task requirements (e.g., trained for basketball detection).</li>
-        <li><strong>Debugging:</strong> Use tools like <code>cv2.imshow()</code> or logging to visualize intermediate outputs during development.</li>
-    </ul>
+   Install the necessary Python packages using `pip`:
 
-    <h2>Troubleshooting</h2>
-    <div class="troubleshooting">
-        <p><strong>CUDA Out-of-Memory Error:</strong></p>
-        <ul>
-            <li>Lower the batch size in <code>detect_frames</code>.</li>
-            <li>Use a smaller YOLO model (e.g., <code>yolov8n.pt</code> instead of <code>yolov8x.pt</code>).</li>
-        </ul>
-    </div>
-    <div class="troubleshooting">
-        <p><strong>Dependency Issues:</strong></p>
-        <ul>
-            <li>Ensure all Python packages are up-to-date.</li>
-            <li>Use a virtual environment to isolate dependencies.</li>
-        </ul>
-    </div>
-    <div class="troubleshooting">
-        <p><strong>Incorrect Object Tracking:</strong></p>
-        <ul>
-            <li>Verify the YOLO model is trained for your specific use case.</li>
-            <li>Fine-tune detection thresholds in <code>detect_frames</code>.</li>
-        </ul>
-    </div>
-
-    <h2>Happy Tracking!</h2>
-    <p>If you have any questions or need further assistance, feel free to reach out.</p>
-</body>
-</html>
+   ```bash
+   pip install ultralytics supervision opencv-python-headless numpy pandas
