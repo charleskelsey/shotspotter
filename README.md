@@ -158,6 +158,37 @@ for frame in annotated_frames:
     out.write(frame)
 out.release()</code></pre>
 
+    <h2>Notes</h2>
+    <ul>
+        <li><strong>Batch Size Adjustment:</strong> Adjust the batch size in <code>detect_frames</code> for optimal performance based on your system’s memory and GPU capacity.</li>
+        <li><strong>Model Selection:</strong> Ensure the YOLO model file (<code>.pt</code>) matches your task requirements (e.g., trained for basketball detection).</li>
+        <li><strong>Debugging:</strong> Use tools like <code>cv2.imshow()</code> or logging to visualize intermediate outputs during development.</li>
+    </ul>
 
+    <h2>Troubleshooting</h2>
+    <div class="troubleshooting">
+        <p><strong>CUDA Out-of-Memory Error:</strong></p>
+        <ul>
+            <li>Lower the batch size in <code>detect_frames</code>.</li>
+            <li>Use a smaller YOLO model (e.g., <code>yolov8n.pt</code> instead of <code>yolov8x.pt</code>).</li>
+        </ul>
+    </div>
+    <div class="troubleshooting">
+        <p><strong>Dependency Issues:</strong></p>
+        <ul>
+            <li>Ensure all Python packages are up-to-date.</li>
+            <li>Use a virtual environment to isolate dependencies.</li>
+        </ul>
+    </div>
+    <div class="troubleshooting">
+        <p><strong>Incorrect Object Tracking:</strong></p>
+        <ul>
+            <li>Verify the YOLO model is trained for your specific use case.</li>
+            <li>Fine-tune detection thresholds in <code>detect_frames</code>.</li>
+        </ul>
+    </div>
+
+    <h2>Happy Tracking!</h2>
+    <p>If you have any questions or need further assistance, feel free to reach out.</p>
 </body>
 </html>
