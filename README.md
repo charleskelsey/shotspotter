@@ -1,4 +1,4 @@
-# Tracker Installation Guide
+# ShotSpotter Installation Guide
 
 This guide provides instructions on how to set up and use the `Tracker` class for object tracking and detection in video frames. The code is built using the **YOLO** model from Ultralytics and integrates with **supervision** for advanced tracking functionality.
 
