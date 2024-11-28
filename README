@@ -1,10 +1,10 @@
-# Tracker Installation Guide
+#Tracker Installation Guide
 
 This guide provides instructions on how to set up and use the `Tracker` class for object tracking and detection in video frames. The code is built using the `YOLO` model from Ultralytics and integrates with `supervision` for advanced tracking functionality.
 
 ---
 
-## Prerequisites
+##Prerequisites
 
 Ensure the following software and tools are installed:
 
@@ -15,7 +15,7 @@ Ensure the following software and tools are installed:
 
 ---
 
-## Installation
+##Installation
 
 1. **Clone or Download the Repository**
 
